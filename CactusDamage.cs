@@ -19,13 +19,14 @@ namespace CactusDamage
 		{
 			if (player.IsPlayerTouchingTile(TileID.Cactus))
 			{
-				player.Hurt(PlayerDeathReason.ByCustomReason(" got spiked to death by a cactus. Ouch!"), 9, player.direction);
+				player.Hurt(PlayerDeathReason.ByCustomReason(" got spiked to death by a cactus. Ouch!"), Main.rand.Next(6, 8), player.direction);
 			}
 		}
 	}
 
 	internal static class Extensions
 	{
+		//Thanks Corinna
 		public static bool IsPlayerTouchingTile(this Player P, int TileID)
 		{
 			Point16 curTilePos = P.position.ToTileCoordinates16();
