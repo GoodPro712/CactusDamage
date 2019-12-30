@@ -1,4 +1,4 @@
 displayName = Cactus Damage
 author = GoodPro712
-version = 0.1.1
+version = 0.1.2
 homepage = https://discord.gg/VrxSx4B
