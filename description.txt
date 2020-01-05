@@ -1,8 +1,8 @@
 Cactus Damage adds a mechanic that when any player touches a cactus, that player takes 6 to 8 damage and gets knocked back.
 
-For support, bugs, feedback or suggestions, visit the discord: https://discord.gg/VrxSx4B
+Discord: https://discord.gg/VrxSx4B
 Github: https://github.com/GoodPro712/CactusDamage/
+Forum: https://forums.terraria.org/index.php?threads/cactus-damage.85194/
 
 Thanks to absoluteAquarian for the player touching tile utility
 Thanks to daimgamer for the icon
-Thanks to Corinna for the tile touching extension

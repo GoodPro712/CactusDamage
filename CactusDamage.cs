@@ -8,9 +8,6 @@ namespace CactusDamage
 {
 	public class CactusDamage : Mod
 	{
-		public CactusDamage()
-		{
-		}
 	}
 
 	public class CDPlayer : ModPlayer
@@ -26,7 +23,7 @@ namespace CactusDamage
 
 	internal static class Extensions
 	{
-		//Thanks Corinna
+		//Thanks Aqua
 		public static bool IsPlayerTouchingTile(this Player P, int TileID)
 		{
 			Point16 curTilePos = P.position.ToTileCoordinates16();
