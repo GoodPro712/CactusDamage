@@ -1,4 +1,4 @@
 displayName = Cactus Damage
 author = GoodPro712
-version = 1.4
+version = 1.4.1
 homepage = https://forums.terraria.org/index.php?threads/cactus-damage.85194/
