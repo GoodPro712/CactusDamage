@@ -10,28 +10,23 @@ namespace CactusDamage
 {
 	public class CactusDamage : Mod
 	{
-		public override void Unload()
-		{
-			CDPlayer.deathReason = null;
-		}
 	}
 
 	public class CDPlayer : ModPlayer
 	{
-		public static string deathReason = " got spiked to death by a cactus. Ouch!";
 
 		public override void PostUpdate()
 		{
 			if (PlayerData.IsPlayeIntersectingTile(player, TileID.Cactus))
 			{
-				player.Hurt(PlayerDeathReason.ByCustomReason(deathReason),
+				player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " got spiked to death by a cactus. Ouch!"),
 
 					ModContent.GetInstance<CDConfig>().damage.enabled
-					? Main.rand.Next(ModContent.GetInstance<CDConfig>().damage.min, ModContent.GetInstance<CDConfig>().damage.max)
-					: ModContent.GetInstance<CDConfig>().damage.value,
+					? Main.rand.Next(ModContent.GetInstance<CDConfig>().damage.Min, ModContent.GetInstance<CDConfig>().damage.Max)
+					: ModContent.GetInstance<CDConfig>().damage.damage,
 
 					ModContent.GetInstance<CDConfig>().knockback
-					? PlayerData.GetDirection(player)
+					? (int)PlayerData.GetPlayerDirection(player)
 					: 0);
 			}
 		}
@@ -51,7 +46,7 @@ namespace CactusDamage
 
 		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message)
 		{
-			if (PlayerData.IsPlayerServerOwner(PlayerData.LPlayer))
+			if (PlayerData.IsPlayerServerHost(PlayerData.LPlayer, out _))
 				return true;
 			else
 			{
@@ -61,7 +56,6 @@ namespace CactusDamage
 		}
 	}
 
-	[Label("Damage")]
 	public class Damage
 	{
 		[Label("Random damage")]
@@ -69,14 +63,55 @@ namespace CactusDamage
 		public bool enabled;
 
 		[Label("Damage")]
-		public int value = 7;
+		[Range(0, int.MaxValue)]
+		public int damage = 7;
+
+		private int min = 6;
 
 		[Label("Min value of random damage")]
-		public int min = 6;
+		[Range(0, int.MaxValue)]
+		public int Min
+		{
+			get
+			{
+				return min;
+			}
+			set
+			{
+				if (value > Max)
+				{
+					min = Max;
+				}
+				else
+				{
+					min = value;
+				}
+			}
+		}
+
+		private int max = 8;
 
 		[Label("Max value of random damage")]
-		public int max = 8;
+		[Range(0, int.MaxValue)]
+		public int Max
+		{
+			get
+			{
+				return max;
+			}
+			set
+			{
+				if (value < Min)
+				{
+					max = Min;
+				}
+				else
+				{
+					max = value;
+				}
+			}
+		}
 
-		public override string ToString() => $"{(enabled ? $"random between {min} and {max}" : $"{value}")}";
+		public override string ToString() => $"{(enabled ? $"random between {Min} and {Max}" : $"{damage}")}";
 	}
 }

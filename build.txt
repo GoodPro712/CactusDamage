@@ -1,5 +1,5 @@
-displayName = Cactus Damage - Config Update
+displayName = Cactus Damage - Config Update (that works)
 author = GoodPro712
-version = 1.5
+version = 1.6
 homepage = https://forums.terraria.org/index.php?threads/cactus-damage.85194/
-modReferences = GoodProLib
+modReferences = GoodProLib@0.2
