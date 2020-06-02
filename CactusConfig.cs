@@ -1,5 +1,4 @@
-﻿using GoodProLib.GData;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Terraria;
 using Terraria.ModLoader.Config;
 
@@ -43,7 +42,7 @@ namespace CactusDamage
 
 		public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message)
 		{
-			if (!PlayerData.IsPlayerServerHost(Main.player[whoAmI], out _))
+			if (!IsPlayerServerHost(Main.player[whoAmI]))
 			{
 				message = "You are not the server host, and thus can't change global configs.";
 				return false;
@@ -51,5 +50,19 @@ namespace CactusDamage
 			else
 				return true;
 		}
+
+		public static bool IsPlayerServerHost(Player player)
+		{
+			//iriterates through every player
+			for (int plr = 0; plr < Main.maxPlayers; plr++)
+			{
+				//checks if the player is the one provided in the parameters and check if the player its iriterating though is the local host. checking for the state is an edge case when there are situations, maybe, where the Player check is incorrect, while joining the world
+				if (Netplay.Clients[plr].State == 10 && plr == player.whoAmI && Netplay.Clients[plr].Socket.GetRemoteAddress().IsLocalHost())
+					return true;
+			}
+
+			return false;
+		}
+
 	}
 }
